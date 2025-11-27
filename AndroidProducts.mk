@@ -15,6 +15,6 @@
 #
 
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/aosp_b2q.mk
+	$(LOCAL_DIR)/twrp_b2q.mk
 
-COMMON_LUNCH_CHOICES := aosp_b2q-eng
+COMMON_LUNCH_CHOICES := twrp_b2q-eng

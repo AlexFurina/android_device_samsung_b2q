@@ -96,8 +96,7 @@ BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 9649745920
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product odm
 
 # System as root
-BOARD_ROOT_EXTRA_FOLDERS := cache carrier data_mirror efs keyrefuge linkerconfig omr optics prism spu
-BOARD_SUPPRESS_SECURE_ERASE := true
+BOARD_ROOT_EXTRA_FOLDERS := cache efs omr optics prism spu
 
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -113,12 +112,13 @@ TW_INCLUDE_CRYPTO_FBE := false
 TW_INCLUDE_FBE_METADATA_DECRYPT := false
 BOARD_USES_METADATA_PARTITION := true
 
-# TWRP specific build flags
-TW_DEVICE_VERSION := ShadowOfLeaf
-TW_THEME := portrait_hdpi
+# Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 RECOVERY_SDCARD_ON_DATA := true
+
+# TWRP specific build flags
+TW_THEME := portrait_hdpi
 TARGET_RECOVERY_QCOM_RTC_FIX := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone50/temp
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 561
@@ -130,11 +130,10 @@ TW_INCLUDE_RESETPROP := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
-TW_USE_NEW_MINADBD := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_USE_TOOLBOX := true
 TARGET_USES_MKE2FS := true
-TW_NO_LEGACY_PROPS := true
-TW_NO_BIND_SYSTEM := true
-TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_LPDUMP := true
+TW_INCLUDE_LPTOOLS := true

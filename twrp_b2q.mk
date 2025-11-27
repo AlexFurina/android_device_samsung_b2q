@@ -29,14 +29,10 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/b2q/device.mk)
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/b2q/recovery/root,recovery/root)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := aosp_b2q
+PRODUCT_NAME := twrp_b2q
 PRODUCT_DEVICE := b2q
 PRODUCT_MODEL := SM-F711B
 PRODUCT_BRAND := samsung
