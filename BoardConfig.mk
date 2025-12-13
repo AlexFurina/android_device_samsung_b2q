@@ -103,6 +103,7 @@ BOARD_ROOT_EXTRA_FOLDERS := cache efs omr optics prism spu
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
+
 AB_OTA_UPDATER := false
 
 # Crypto
@@ -123,10 +124,10 @@ TW_THEME := portrait_hdpi
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone50/temp
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-TW_MAX_BRIGHTNESS := 561
-TW_DEFAULT_BRIGHTNESS := 120
-TW_Y_OFFSET := 100
-TW_H_OFFSET := -100
+TW_MAX_BRIGHTNESS := 306
+TW_DEFAULT_BRIGHTNESS := 255
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
 TW_INCLUDE_LIBRESETPROP := true
 TW_INCLUDE_RESETPROP := true
 TW_NO_REBOOT_BOOTLOADER := true
