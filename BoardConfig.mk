@@ -43,6 +43,9 @@ TARGET_USES_64_BIT_BINDER := true
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
+# Fix for copying *.ko
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 ALLOW_MISSING_DEPENDENCIES := true
 
 # File systems
@@ -56,10 +59,9 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno660
 QCOM_BOARD_PLATFORMS += lahaina
 
 # Kernel
-TARGET_PREBUILT_KERNEL := device/samsung/b2q/prebuilt/zImage
+TARGET_PREBUILT_KERNEL := device/samsung/b2q/prebuilt/Image
 TARGET_PREBUILT_DTB := device/samsung/b2q/prebuilt/dtb
 BOARD_PREBUILT_DTBOIMAGE := device/samsung/b2q/prebuilt/recoverydtbo
-#BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_KERNEL_ARCH := arm64
 
@@ -76,7 +78,7 @@ BOARD_KERNEL_TAGS_OFFSET := 0x01e00000
 BOARD_DTB_OFFSET := 0x01f00000
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) 
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --second_offset $(BOARD_KERNEL_SECOND_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION) --pagesize $(BOARD_KERNEL_PAGESIZE) --board "SRPUC03A002"
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION) --pagesize $(BOARD_KERNEL_PAGESIZE) --board "SRPUC03A013"
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB) --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/b2q/bootimg.mk
 

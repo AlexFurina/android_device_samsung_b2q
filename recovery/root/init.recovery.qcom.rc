@@ -34,6 +34,16 @@ on init
     mkdir /sec_efs
     
 on boot
+
+    # load touchscreen modules
+    insmod /vendor/lib/modules/sec_tsp_log.ko
+    insmod /vendor/lib/modules/sec_tclm_v2.ko
+    insmod /vendor/lib/modules/sec_secure_touch.ko
+    insmod /vendor/lib/modules/sec_common_fn.ko
+    insmod /vendor/lib/modules/sec_tsp_dumpkey.ko
+    insmod /vendor/lib/modules/sec_cmd.ko
+    insmod /vendor/lib/modules/sec_virtual_tsp.ko
+    insmod /vendor/lib/modules/stm_ts.ko
   
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
