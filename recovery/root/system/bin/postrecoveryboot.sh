@@ -3,7 +3,7 @@
 
 job() {
     block_ro="sda sdb sdc sdd sde sdf mmcblk0"
-    byname_rw="boot recovery super vendor_boot odm omr dtbo userdata cache misc metadata init_boot prism optics dtb system product vendor vbmeta hidden bota"
+    byname_rw="boot recovery super efs sec_efs vendor_boot odm omr dtbo userdata cache misc metadata init_boot prism optics dtb system product vendor vbmeta hidden bota"
 
     for i in $block_ro; do
         [ ! -b "/dev/block/$i" ] && continue
