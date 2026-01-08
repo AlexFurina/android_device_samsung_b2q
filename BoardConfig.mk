@@ -15,12 +15,8 @@
 #
 
 # Bootloader
-BOARD_VENDOR := samsung
-TARGET_SOC := lahaina
 TARGET_BOOTLOADER_BOARD_NAME := lahaina
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE := true
-TARGET_USES_UEFI := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -48,15 +44,9 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 ALLOW_MISSING_DEPENDENCIES := true
 
-# File systems
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-
 # Platform
-BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOARD_PLATFORM := lahaina
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno660
-QCOM_BOARD_PLATFORMS += lahaina
+TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
+QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 
 # Kernel
 TARGET_PREBUILT_KERNEL := device/samsung/b2q/prebuilt/Image
@@ -68,7 +58,31 @@ TARGET_KERNEL_ARCH := arm64
 # Boot
 BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 loop.max_part=7 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image printk.devkmsg=on androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := \
+	console=null \
+	androidboot.hardware=qcom \
+	androidboot.memcg=1 \
+	lpm_levels.sleep_disabled=1 \
+	video=vfb:640x400,bpp=32,memsize=3072000 \
+	msm_rtb.filter=0x237 \
+	service_locator.enable=1 \
+	androidboot.usbcontroller=a600000.dwc3 \
+	swiotlb=2048 \
+	loop.max_part=7 \
+	cgroup.memory=nokmem,nosocket \
+	firmware_class.path=/vendor/firmware_mnt/image \
+	printk.devkmsg=on \
+	pcie_ports=compat \
+	androidboot.selinux=permissive
+
+BOARD_ROOT_EXTRA_FOLDERS := \
+    carrier \
+    efs \
+    omr \
+    optics \
+    prism \
+    spu
+
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_OFFSET := 0x00008000
@@ -82,14 +96,13 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION) --pagesize
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB) --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/b2q/bootimg.mk
 
-# Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_HAS_NO_SELECT_BUTTON := true
-
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Dynamic Partitions
 BOARD_SUPER_PARTITION_SIZE := 12067012608
@@ -97,31 +110,27 @@ BOARD_SUPER_PARTITION_GROUPS := samsung_dynamic_partitions
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 9649745920
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product odm
 
-# System as root
-BOARD_ROOT_EXTRA_FOLDERS := cache efs omr optics prism spu
-
-# Workaround for error copying vendor files to recovery ramdisk
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_ODM := odm
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_PRODUCT := product
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
-AB_OTA_UPDATER := false
-
-# Crypto
-PLATFORM_SECURITY_PATCH := 2025-12-31
-VENDOR_SECURITY_PATCH := 2025-12-31
-PLATFORM_VERSION := 12
-TW_INCLUDE_CRYPTO := false
-TW_INCLUDE_CRYPTO_FBE := false
-TW_INCLUDE_FBE_METADATA_DECRYPT := false
+# Encryption
+BOARD_USES_QCOM_FBE_DECRYPTION := false
 BOARD_USES_METADATA_PARTITION := true
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 RECOVERY_SDCARD_ON_DATA := true
 
+# Use mke2fs to create ext4 images
+TARGET_USES_MKE2FS := true
+
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
-TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone50/temp
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 306
@@ -133,12 +142,13 @@ TW_INCLUDE_RESETPROP := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_USE_TOOLBOX := true
-TARGET_USES_MKE2FS := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_BACKUP_EXCLUSIONS := /data/fonts
+TW_EXTRA_LANGUAGES := true
 TW_NO_EXFAT_FUSE := true
 TW_INCLUDE_LPDUMP := true
 TW_INCLUDE_LPTOOLS := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+TW_FRAMERATE := 120
