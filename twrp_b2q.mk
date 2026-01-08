@@ -38,3 +38,6 @@ PRODUCT_MODEL := SM-F711B
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
+
+# Default device path for tree
+DEVICE_PATH := device/samsung/b2q
